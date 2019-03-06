@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cd /vagrant/provisioning/tmp/git-{{git_version}}
+make configure
+./configure --prefix=/usr
+make all doc info
+sudo make install install-doc install-html install-info

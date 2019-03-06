@@ -1,0 +1,53 @@
+---
+  - file:
+      path: /vagrant/provisioning/tmp/git
+      state: directory
+      mode: 0755
+
+  - name: GIT - download and unarchive a GIT 2.9.5 tarball
+    unarchive:
+      src: https://mirrors.edge.kernel.org/pub/software/scm/git/git-{{git_version}}.tar.gz
+      dest: /vagrant/provisioning/tmp
+      remote_src: yes
+      creates: /vagrant/provisioning/tmp/git-{{git_version}}
+    register: git_unarchive_result
+
+  - block:
+    - name: GIT - install dependencies
+      yum:
+        name:
+          - dh-autoreconf
+          - curl-devel
+          - expat-devel
+          - gettext-devel
+          - openssl-devel
+          - perl-devel
+          - zlib-devel
+          - asciidoc
+          - xmlto
+          - docbook2X
+        state: present
+
+    - name: GIT - create symlink /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi
+      file:
+        src: /usr/bin/db2x_docbook2texi
+        dest: /usr/bin/docbook2x-texi
+        state: link
+
+    - debug: msg="{{ git_unarchive_result }}"
+
+    - name: GIT - upload GIT {{git_version}} install script /home/vagrant/git-install.sh
+      template:
+        src: home/vagrant/git-install.sh.j2
+        dest: /home/vagrant/git-install.sh
+        owner: vagrant
+        group: vagrant
+        mode: 0744
+
+    - name: GIT - make GIT {{git_version}}
+      command: sh /home/vagrant/git-install.sh
+      register: git_result
+
+    #  - debug: msg="{{ git_result.stdout }}"
+
+    when: git_unarchive_result.changed
