@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /vagrant/provisioning/tmp/git-{{git_version}}
+cd /home/vagrant/tmp/git-{{git_version}}
 make configure
 ./configure --prefix=/usr
 make all doc info
