@@ -1,15 +1,15 @@
 ---
   - file:
-      path: /vagrant/provisioning/tmp/git
+      path: /home/vagrant/tmp
       state: directory
       mode: 0755
 
   - name: GIT - download and unarchive a GIT 2.9.5 tarball
     unarchive:
       src: https://mirrors.edge.kernel.org/pub/software/scm/git/git-{{git_version}}.tar.gz
-      dest: /vagrant/provisioning/tmp
+      dest: /home/vagrant/tmp
       remote_src: yes
-      creates: /vagrant/provisioning/tmp/git-{{git_version}}
+      creates: /home/vagrant/tmp/git-{{git_version}}
     register: git_unarchive_result
 
   - block:
