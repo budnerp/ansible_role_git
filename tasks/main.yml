@@ -34,8 +34,6 @@
         dest: /usr/bin/docbook2x-texi
         state: link
 
-    - debug: msg="{{ git_unarchive_result }}"
-
     - name: GIT - upload GIT {{git_version}} install script /home/vagrant/git-install.sh
       template:
         src: home/vagrant/git-install.sh.j2
@@ -47,7 +45,5 @@
     - name: GIT - make GIT {{git_version}}
       command: sh /home/vagrant/git-install.sh
       register: git_result
-
-    #  - debug: msg="{{ git_result.stdout }}"
 
     when: git_unarchive_result.changed
