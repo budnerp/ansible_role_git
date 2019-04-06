@@ -1,4 +1,9 @@
 ---
+  - name: GIT - check if GIT was installed from the source before
+    stat:
+      path: /home/vagrant/tmp/git-{{git_install_from_source_version}}
+    register: git_install_from_source_folder
+
   - block:
     - name: GIT - install iuscommunity repository package
       yum:
@@ -10,7 +15,7 @@
         name: git2u
         state: present
 
-    when: git_install_from_source != "1"
+    when: git_install_from_source != "1" and git_install_from_source_folder.stat.exists == false
 
   - file:
       path: /home/vagrant/tmp
