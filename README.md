@@ -2,7 +2,8 @@
 Ansible role for GIT 2.9 installation for CentOS 7
 
 ## What's inside?
-1. GIT 2.9 and it's dependencies:
+1. Installtion from source (version 2.9) or from `centos7.iuscommunity.org` (version 2.16) RPM
+2. Source installation: GIT 2.9 and it's dependencies:
     - dh-autoreconf
     - curl-devel
     - expat-devel
@@ -14,7 +15,7 @@ Ansible role for GIT 2.9 installation for CentOS 7
     - xmlto
     - docbook2X
     - getopt
-2. Custom settings as per `defaults/main.yml`
+3. Custom settings as per `defaults/main.yml`
    
 ## Tested on
 
